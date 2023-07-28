@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import GnB from "./routes/Nav";
@@ -7,16 +7,29 @@ import Detail from "./routes/Detail";
 import About from "./routes/About";
 import Event from "./routes/Event";
 import data from "./data";
+import axios from "axios";
 import "./App.css";
 
 function App() {
-    let [shoes] = useState(data);
+    const [shoes, setShoes] = useState(data);
 
+    function moreData() {
+        axios
+            .get("https://codingapple1.github.io/shop/data2.json")
+            .then((data) => {
+              // console.log(data.data);
+              let copy = [...shoes];
+                setShoes(copy.concat(data.data))
+            })
+            .catch(() => {
+                console.log("false");
+            });
+    }
     return (
         <div className="App">
             <GnB />
             <Routes>
-                <Route path="/" element={<Main shoes={shoes} />} />
+                <Route path="/" element={<Main shoes={shoes} moreData={moreData} />} />
                 <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
                 <Route path="/about" element={<About />}>
                     <Route path="member" element={<div>Member</div>} />
