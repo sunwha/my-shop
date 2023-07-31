@@ -1,3 +1,10 @@
 .main-bg {
-  height:300px;
+  height: 300px;
+}
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 1s;
 }
