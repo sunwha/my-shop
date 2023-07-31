@@ -3,13 +3,16 @@ import { Container, Card, Button, Toast } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Tab from "../components/Tab";
 import "../App.css";
+import { addCart } from "../store/userSlice";
+import { useDispatch } from "react-redux";
 
 const Detail = ({ shoes }) => {
     const { id } = useParams();
     const item = shoes.find((x) => x.id == id);
     const [toast, setToast] = useState(true);
-    const [num, setNum] = useState(true);
+    const [num, setNum] = useState(false);
     const [fade, setFade] = useState("");
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setFade("end");
@@ -21,19 +24,13 @@ const Detail = ({ shoes }) => {
             clearTimeout(timer);
             setFade("");
         };
-    }, [num]);
+    }, []);
 
-    useEffect(() => {});
-
-    function numCheckFn(e) {
+    function quantityVal(e) {
         if (e.target.value) {
-            if (isNaN(e.target.value)) {
-                setNum(false);
-            } else {
-                setNum(true);
-            }
-        } else {
             setNum(true);
+        } else {
+            setNum(false);
         }
     }
 
@@ -50,20 +47,18 @@ const Detail = ({ shoes }) => {
             ) : null}
 
             <Container className={`start ${fade}`}>
-                <div style={{ display: "flex", marginTop: "20px" }}>
+                <div style={{ display: "flex", marginTop: "50px" }}>
                     <div style={{ width: "70vw" }}>
                         <img src={`${process.env.PUBLIC_URL}/images/shoes${parseInt(Number(id) + 1)}.jpg`} alt={`shoes${parseInt(Number(id) + 1)}`} style={{ width: "100%" }} />
                     </div>
                     <Card style={{ width: "30vw", height: "70vh", textAlign: "center" }}>
                         <Card.Body>
-                            <Card.Title style={{ marginBottom: "30px" }}>
-                                {item.title}
-                            </Card.Title>
+                            <Card.Title style={{ marginBottom: "30px" }}>{item.title}</Card.Title>
                             <Card.Subtitle className="mb-3 text-muted">{item.price} won</Card.Subtitle>
                             <Card.Text>{item.content}</Card.Text>
-                            <input type="text" placeholder="Number" style={{ width: "100%" }} onChange={numCheckFn} />
-                            {num ? null : <p style={{ fontSize: "12px", color: "red", textAlign: "left" }}>Please enter number only.</p>}
-                            <Button variant="danger" size="sm" style={{ marginTop: "10px" }}>
+                            <input type="number" placeholder="Number" style={{ width: "100%" }} onChange={(e) => quantityVal(e)} min="1" max="5" />
+                            {[null, null, <p style={{ fontSize: "12px", color: "red", textAlign: "left" }}>Please enter number only.</p>][num]}
+                            <Button variant="danger" size="sm" style={{ marginTop: "10px" }} onClick={() => dispatch(addCart(item))} disabled={num ? false : true}>
                                 Order
                             </Button>
                         </Card.Body>

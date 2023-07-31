@@ -6,6 +6,7 @@ import Main from "./routes/Main";
 import Detail from "./routes/Detail";
 import About from "./routes/About";
 import Event from "./routes/Event";
+import Cart from "./routes/Cart";
 import data from "./data";
 import axios from "axios";
 import "./App.css";
@@ -51,6 +52,7 @@ function App() {
           <Route path="member" element={<div>Member</div>} />
           <Route path="location" element={<div>Location</div>} />
         </Route>
+        <Route path="/cart" element={<Cart />} />
         <Route path="/event" element={<Event />}>
           <Route index element={<div>첫 주문시 양배추즙 서비스</div>} />
           <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
