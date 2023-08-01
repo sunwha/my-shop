@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Card, Button, Toast } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Tab from "../components/Tab";
 import "../App.css";
 import { addCart } from "../store/userSlice";
@@ -11,8 +11,11 @@ const Detail = ({ shoes }) => {
     const item = shoes.find((x) => x.id == id);
     const [toast, setToast] = useState(true);
     const [num, setNum] = useState(false);
+    const [count, setCount] = useState(0);
     const [fade, setFade] = useState("");
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setFade("end");
@@ -29,6 +32,7 @@ const Detail = ({ shoes }) => {
     function quantityVal(e) {
         if (e.target.value) {
             setNum(true);
+            setCount(e.target.value);
         } else {
             setNum(false);
         }
@@ -56,9 +60,9 @@ const Detail = ({ shoes }) => {
                             <Card.Title style={{ marginBottom: "30px" }}>{item.title}</Card.Title>
                             <Card.Subtitle className="mb-3 text-muted">{item.price} won</Card.Subtitle>
                             <Card.Text>{item.content}</Card.Text>
-                            <input type="number" placeholder="Number" style={{ width: "100%" }} onChange={(e) => quantityVal(e)} min="1" max="5" />
+                            <input type="number" placeholder="Number" style={{ width: "100%" }} onChange={(e) => quantityVal(e)} min="1" max="5" maxLength="1" />
                             {[null, null, <p style={{ fontSize: "12px", color: "red", textAlign: "left" }}>Please enter number only.</p>][num]}
-                            <Button variant="danger" size="sm" style={{ marginTop: "10px" }} onClick={() => dispatch(addCart(item))} disabled={num ? false : true}>
+                            <Button variant="danger" size="sm" style={{ marginTop: "10px" }} onClick={() => {dispatch(addCart([item, count])); navigate("/cart")}} disabled={num ? false : true}>
                                 Order
                             </Button>
                         </Card.Body>

@@ -1,6 +1,6 @@
 import { Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMinus, changePlus } from "../store/userSlice";
+import { changeMinus, changePlus, deleteItem } from "../store/userSlice";
 
 function Cart() {
     const user = useSelector((state) => state.user.name);
@@ -24,7 +24,7 @@ function Cart() {
                     {cartList && cartList.map((item, idx) => (
                         <tr key={item.id}>
                             <td>{idx + 1}</td>
-                            <td>{item.name}</td>
+                            <td>{item.title}</td>
                             <td>{item.count}</td>
                             <td>
                                 <Button variant="outline-dark" onClick={() => dispatch(changePlus(item.id))}>
@@ -32,6 +32,9 @@ function Cart() {
                                 </Button>
                                 <Button variant="outline-dark" onClick={() => dispatch(changeMinus(item.id))}>
                                     -
+                                </Button>
+                                <Button variant="outline-dark" onClick={() => dispatch(deleteItem(item.id))}>
+                                    x
                                 </Button>
                             </td>
                         </tr>
