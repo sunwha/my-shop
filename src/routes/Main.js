@@ -1,5 +1,6 @@
 import { Container, Row, Button } from "react-bootstrap";
 import Shoes from "../components/Shoes";
+import Recent from "../components/Recent";
 import axios from "axios";
 import { useState } from "react";
 import { addMoreData } from "../store/productSlice";
@@ -38,7 +39,14 @@ const Main = ({ shoes }) => {
             <Container>
                 <Row md={3}>
                     {shoes.map((item, idx) => (
-                        <Shoes key={item.id} id={item.id} title={item.title} price={item.price} content={item.content} idx={idx} />
+                        <Shoes
+                            key={item.id}
+                            itemId={item.id}
+                            title={item.title}
+                            price={item.price}
+                            content={item.content}
+                            idx={idx}
+                        />
                     ))}
                 </Row>
                 <p
@@ -64,6 +72,7 @@ const Main = ({ shoes }) => {
                     )}
                 </p>
             </Container>
+            <Recent />
         </>
     );
 };
