@@ -9,10 +9,14 @@ import Cart from "./routes/Cart";
 
 import "./App.css";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
     const data = useSelector((state) => state.productSlice);
-    
+    useEffect(() => {
+        localStorage.setItem("watched", JSON.stringify([]));
+    }, []);
+
     return (
         <div className="App">
             <GnB />

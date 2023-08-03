@@ -1,25 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 export default function Shoes({ itemId, title, price, content, idx }) {
     let navigate = useNavigate();
     const data = useSelector((state) => state.productSlice);
-    const [recent, setRecent] = useState([]);
-
+    
     function addRecent(itemId) {
         const clickedItem = data.find((elem) => elem.id === itemId);
-        setRecent([...recent, clickedItem]);
-        console.log(recent);
-        // localStorage.setItem("clickedItem", JSON.stringify(clickedItem));
+        const local = localStorage.getItem("watched");
+        let localData = JSON.parse(local);
+        if(!localData.find((elem)=> elem.id === clickedItem.id)) {
+            localData.unshift(clickedItem)
+        }
+        if(localData.length > 2){
+            localData.splice(-1, 2);
+        }
+        localStorage.setItem("watched", JSON.stringify(localData));
     }
 
     return (
         <Col
             onClick={() => {
-                navigate(`/detail/${idx}`);
                 addRecent(itemId);
+                navigate(`/detail/${idx}`);   
             }}
             style={{ textAlign: "center" }}
         >

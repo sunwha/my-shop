@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Card, Button, Toast } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import Tab from "../components/Tab";
+import Recent from "../components/Recent"
 import "../App.css";
 import { addCart } from "../store/userSlice";
 import { useDispatch } from "react-redux";
@@ -70,6 +71,7 @@ const Detail = ({ shoes }) => {
                 </div>
                 <Tab item={item} />
             </Container>
+            <Recent />
         </>
     );
 };

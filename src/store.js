@@ -12,6 +12,6 @@ export default configureStore({
     reducer: {
         user: user.reducer,
         userSlice: userSlice.reducer,
-        productSlice: productSlice.reducer
+        productSlice: productSlice.reducer,
     },
 });
