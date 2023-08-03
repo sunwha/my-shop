@@ -49,7 +49,7 @@ const Main = ({ shoes }) => {
                         />
                     ))}
                 </Row>
-                <p
+                <div
                     style={{
                         textAlign: "center",
                         marginTop: "30px",
@@ -70,7 +70,7 @@ const Main = ({ shoes }) => {
                             More
                         </Button>
                     )}
-                </p>
+                </div>
             </Container>
             <Recent />
         </>

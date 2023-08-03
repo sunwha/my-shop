@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const GnB = () => {
+const GnB = ({ resultName }) => {
     let navigate = useNavigate();
 
     return (
@@ -15,7 +15,14 @@ const GnB = () => {
                 </Nav>
                 <Nav className="justify-content-end">
                     <Nav.Item>
-                        <Nav.Link onClick={() => navigate(-1)}>Back</Nav.Link>
+                        {/* <Nav.Link onClick={() => navigate(-1)}>Back</Nav.Link> */}
+                        {resultName.isLoading && "Loading..."}
+                        {resultName.error && "Error!"}
+                        {resultName.data && (
+                            <Nav.Link className="ms-auto">
+                                Welcome, <strong>{resultName.data.name}</strong>
+                            </Nav.Link>
+                        )}
                     </Nav.Item>
                 </Nav>
             </Container>
