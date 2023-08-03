@@ -5,15 +5,15 @@ import { useSelector } from "react-redux";
 export default function Shoes({ itemId, title, price, content, idx }) {
     let navigate = useNavigate();
     const data = useSelector((state) => state.productSlice);
-    
+
     function addRecent(itemId) {
         const clickedItem = data.find((elem) => elem.id === itemId);
         const local = localStorage.getItem("watched");
         let localData = JSON.parse(local);
-        if(!localData.find((elem)=> elem.id === clickedItem.id)) {
-            localData.unshift(clickedItem)
+        if (!localData.find((elem) => elem.id === clickedItem.id)) {
+            localData.unshift(clickedItem);
         }
-        if(localData.length > 2){
+        if (localData.length > 2) {
             localData.splice(-1, 2);
         }
         localStorage.setItem("watched", JSON.stringify(localData));
@@ -23,7 +23,7 @@ export default function Shoes({ itemId, title, price, content, idx }) {
         <Col
             onClick={() => {
                 addRecent(itemId);
-                navigate(`/detail/${idx}`);   
+                navigate(`/detail/${idx}`);
             }}
             style={{ textAlign: "center" }}
         >

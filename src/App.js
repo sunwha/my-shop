@@ -14,7 +14,9 @@ import { useEffect } from "react";
 function App() {
     const data = useSelector((state) => state.productSlice);
     useEffect(() => {
-        localStorage.setItem("watched", JSON.stringify([]));
+        if(!localStorage.getItem("watched")){
+            localStorage.setItem("watched", JSON.stringify([]));
+        }
     }, []);
 
     return (

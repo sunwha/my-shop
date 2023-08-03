@@ -7,7 +7,7 @@ export default function Recent() {
     return (
         <>
             {localData.length ? (
-                <div style={{ position: "fixed", top: "70px", right: "47px", width: "200px", padding: "10px", borderRadius: "10px", border: "1px solid #ccc", backgroundColor: "#fff" }}>
+                <div style={{ position: "fixed", top: "70px", right: "47px", width: "20vw", padding: "10px", borderRadius: "10px", border: "1px solid #ccc", backgroundColor: "#fff" }}>
                     <h4>Recent Items</h4>
                     <ul style={{ padding: 0, listStyle: "none" }}>
                         {localData.map((item) => (
